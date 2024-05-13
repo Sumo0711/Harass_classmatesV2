@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>你喜歡我嗎?</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #f5f5f5;
+}
+
+h1 {
+  color: #333;
+  margin-top: 50px;
+}
+
+input[type="button"] {
+  padding: 10px 20px;
+  font-size: 18px;
+  margin: 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#yes-button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+#yes-button:hover {
+  background-color: #45a049;
+}
+
+#no-button {
+  background-color: #f44336;
+  color: white;
+}
+
+#no-button:hover {
+  background-color: #da190b;
+}
+</style>
+</head> 
+<body>
+<h1>你喜歡我嗎?</h1>
+<input id="yes-button" type="button" value="YES" onclick="clickYesButton()">
+<input id="no-button" type="button" value="NO" onmouseover="hoverNoButton()">
+<script>
+function clickYesButton() {
+  alert('我就知道你喜歡我！');
+}
+
+function hoverNoButton() {
+  const noButton = document.getElementById('no-button');
+  const randomX = Math.random() * (window.innerWidth - noButton.offsetWidth);
+  const randomY = Math.random() * (window.innerHeight - noButton.offsetHeight);
+
+  noButton.style.position = 'absolute';
+  noButton.style.left = `${randomX}px`;
+  noButton.style.top = `${randomY}px`;
+} 
+
+document.getElementById('no-button').addEventListener('mouseover', hoverNoButton);
+</script>
+</body>
+</html>
