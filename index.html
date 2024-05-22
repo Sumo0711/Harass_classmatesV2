@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,13 +10,19 @@ body {
   text-align: center;
   background-color: #ff69b4; 
   background: #ee9ca7;  
-  background: -webkit-linear-gradient(to left, #ffdde1, #ee9ca7);  
+  background: -webkit-linear-gradient(to left, #ffdde1, #ee9ca7); 
   background: linear-gradient(to left, #ffdde1, #ee9ca7); 
 }
 
 h1 {
   color: #333;
   margin-top: 50px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 input[type="button"] {
@@ -38,20 +44,26 @@ input[type="button"] {
   background-color: #45a049;
 }
 
-#no-button {
+#no-button, .new-no-button {
   background-color: #f44336;
   color: white;
 }
 
-#no-button:hover {
+#no-button:hover, .new-no-button:hover {
   background-color: #da190b;
+}
+
+.hidden {
+  visibility: hidden;
 }
 </style>
 </head> 
 <body>
 <h1>你喜歡我嗎?</h1>
-<input id="yes-button" type="button" value="YES" onclick="clickYesButton()">
-<input id="no-button" type="button" value="NO" onmouseover="hoverNoButton()">
+<div class="button-container">
+  <input id="yes-button" type="button" value="YES" onclick="clickYesButton()">
+  <input id="no-button" type="button" value="NO" onmouseover="hoverNoButton()">
+</div>
 <script>
 function clickYesButton() {
   alert('我就知道你喜歡我！');
@@ -59,13 +71,25 @@ function clickYesButton() {
 
 function hoverNoButton() {
   const noButton = document.getElementById('no-button');
-  const randomX = Math.random() * (window.innerWidth - noButton.offsetWidth);
-  const randomY = Math.random() * (window.innerHeight - noButton.offsetHeight);
+  noButton.classList.add('hidden');
 
-  noButton.style.position = 'absolute';
-  noButton.style.left = `${randomX}px`;
-  noButton.style.top = `${randomY}px`;
-} 
+  let newNoButton = document.querySelector('.new-no-button');
+  if (!newNoButton) {
+    newNoButton = noButton.cloneNode(true);
+    newNoButton.classList.remove('hidden');
+    newNoButton.classList.add('new-no-button');
+    newNoButton.id = '';
+    document.body.appendChild(newNoButton);
+  }
+  moveNoButton(newNoButton);
+}
+
+function moveNoButton(button) {
+  button.style.position = 'absolute';
+  button.style.left = `${Math.random() * (window.innerWidth - button.offsetWidth)}px`;
+  button.style.top = `${Math.random() * (window.innerHeight - button.offsetHeight)}px`;
+  button.onmouseover = () => moveNoButton(button);
+}
 
 document.getElementById('no-button').addEventListener('mouseover', hoverNoButton);
 </script>
